@@ -15,4 +15,8 @@ defmodule Unplug do
   def hello do
     :world
   end
+
+  def start do
+    {:ok, pid} = Unplug.Supervisor.start_link([port: 4000])
+  end
 end

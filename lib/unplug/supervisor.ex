@@ -3,7 +3,7 @@ defmodule Unplug.Supervisor do
 
   ## API
   def start_link(config) do
-    Supervisor.start_link(__MODULE__, config)
+    Supervisor.start_link(__MODULE__, config, name: __MODULE__)
   end
 
   ## Callbacks

@@ -1,5 +1,6 @@
 defmodule Unplug.Listener do
   use GenServer
+  require Logger
 
   defmodule State do
     defstruct sup: nil, port: 5000, socket: nil, socket_sup: nil
@@ -15,19 +16,12 @@ defmodule Unplug.Listener do
     init(config, %State{sup: sup})
   end
 
-  def init([{:port, port}|rest], state) do
-    init(rest, %{state | port: port})
+  def init(config, state) do
+    init(%{state | port: config[:port] })
   end
 
-  def init([_|rest], state) do
-    init(rest, state)
-  end
-
-  def init([], state) do
-    init(state)
-  end
-
-  def init(state = %{sup: _, port: _}) do
+  def init(state = %{sup: _, port: port}) do
+    Logger.info("Started with port: #{port}")
     send(self(), :start_socket_sup)
     send(self(), :start_listening)
 

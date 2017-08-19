@@ -1,22 +1,8 @@
 defmodule Unplug do
-  @moduledoc """
-  Documentation for Unplug.
-  """
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Unplug.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
-  def start do
-    {:ok, pid} = Unplug.Supervisor.start_link([port: 4000])
+  def start(_type, args) do
+    config = Map.merge(%{port: 4000}, args)
+    Unplug.Supervisor.start_link(config)
   end
 end
